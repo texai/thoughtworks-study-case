@@ -159,8 +159,8 @@ layout: section
 
 **Platform Team (Enablement)**
 - **Core responsibilities:** Shell architecture, design system
-- **Developer experience:** Linting, tooling, i18n framework (if needed)
-- **Skill mix:** Frontend architects, UX system designers
+- **Developer experience:** Linting, tooling
+- **Skills mix:** Frontend architects, UX system designers
 
 **Domain Product Squads** _(Cross-functional)_
 - **Ownership:** Complete MFE + Domain BFF lifecycle (design → development → production)
@@ -175,13 +175,13 @@ layout: section
 - **Infrastructure:** IaC, capacity planning, cost optimization, security baselines
 - **CI/CD:** Pipeline templates, deployment automation, build optimization
 - **Operations:** Incident management, monitoring, performance optimization
-- **Skill mix:** Site reliability engineers, DevOps engineers, infrastructure specialists
+- **Skills mix:** Site reliability engineers, DevOps engineers, infrastructure specialists
 
 **Quality Engineering & Analytics**
 - **Quality:** Contract testing, E2E automation, accessibility, performance testing
-- **Analytics:** Business dashboards, conversion analysis, A/B testing framework (if needed)
+- **Analytics:** Business dashboards, conversion analysis, A/B testing framework
 - **Integration:** Embedded specialists in each domain squad
-- **Skill mix:** Test automation engineers, data analysts, accessibility specialists
+- **Skills mix:** Test automation engineers, data analysts, accessibility specialists
 
 ---
 layout: section
