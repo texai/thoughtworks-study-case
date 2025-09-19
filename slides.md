@@ -41,14 +41,18 @@ layout: section
 ---
 
 ## Approach & Outcomes
+
 **Approach (high level)**  
 - **Micro-frontends (MFE) with a shell** + **domain BFFs** + **API gateway**  
 - **Feature flags**, **contract testing**, **progressive delivery**  
 - **Strangler Fig** to retire Struts/JSP gradually
 
 **Outcomes**  
-- Faster delivery, reduced coupling, safer releases  
-- Improved UX & Core Web Vitals
+- **Faster delivery:** Independent team deployments, reduced coordination overhead
+- **Better user experience:** Unified interface, improved Core Web Vitals, faster page loads
+- **Reduced risk:** Progressive rollouts, feature flags, immediate rollback capability
+- **Operational efficiency:** Consolidated data aggregation, simplified maintenance
+- **Future flexibility:** Backend-agnostic design enables gradual modernization
 
 ---
 layout: section
@@ -91,9 +95,7 @@ MFE ──> Domain BFF ──> API Gateway ──> { Travels Backend (AWS) }
   - **Key responsibilities:** Merge data from Travels + Viagens, normalize formats, handle pagination
   - Example: Search BFF calls both backends, merges destinations, deduplicates, sorts by relevance
 - **Contracts:** REST/JSON or GraphQL; **consumer-driven contracts** (Pact) MFE↔BFF & BFF↔Backend
-- **Edge/CDN:** Cloudflare/Akamai/Fastly for assets, image optimization, edge auth
-- **Analytics & Consent:** Unified event schema + privacy/consent management
-- **Security:** WAF, CSP/Trusted Types, secret mgmt, RASP (optional)
+- **Edge/CDN:** Cloudflare/Akamai/Fastly for assets, image optimization
 
 ---
 layout: section
@@ -103,27 +105,38 @@ layout: section
 
 ---
 
-## Roadmap Without Revenue Loss
+## Migration Strategy Overview
+
+**Approach:** Big bang migration with comprehensive preparation and revenue protection
+
+**Key Phases:** Discovery → Foundations → Preparation → Migration → Optimization
+
+**Revenue Protection:** Pre-migration testing, performance benchmarking, immediate rollback capability
+
+---
+
+## Phase 0-2: Preparation & Build
 
 **Phase 0 — Discovery & Planning**  
 - Inventory frontends/backends, auth, analytics, SEO, SLAs  
-- Establish **ADRs** and tech radar
 - Baseline current metrics (conversion, performance, revenue)
 
 **Phase 1 — Foundations**  
 - Stand up **Web Shell + first MFE skeleton**  
 - Platform toolchain (CI/CD, flags, telemetry, design system)  
-- Create **API Gateway** + **Booking BFF** (pilot)  
-- Implement SSO, edge caching, base observability
+- Create **API Gateway** + **Booking BFF** (pilot)
 
 **Phase 2 — Complete Migration Preparation**  
 - Build **all MFEs** (Search, Booking, Registration, Payments, Account)  
 - **Feature parity validation**: comprehensive testing vs legacy functionality  
 - Performance benchmarking to ensure **≥100% baseline performance**
-- **Big bang preparation**: deployment scripts, rollback procedures
+
+---
+
+## Phase 3-4: Migration & Optimization
 
 **Phase 3 — Big Bang Migration**  
-- **Complete cutover** from legacy to new platform during maintenance window  
+- **Complete cutover** from legacy to new platform during maintenance window (minimal impact)
 - **Immediate monitoring**: revenue, conversion, performance dashboards  
 - **Fast rollback capability** if any KPIs drop below acceptable thresholds
 
@@ -132,7 +145,7 @@ layout: section
 - Legacy system decommission once stability confirmed  
 - Platform improvements and feature development
 
-**Revenue Protection:** Comprehensive pre-migration testing, performance benchmarking, immediate rollback capability, intensive monitoring
+**Critical Success Factors for Revenue Protection:** Comprehensive testing, performance benchmarking, immediate rollback capability, intensive monitoring
 
 ---
 layout: section
@@ -173,9 +186,8 @@ layout: section
 - **Ephemeral preview environments** per PR; visual regression + accessibility checks
 - **Static analysis & coverage gates** enforced in CI pipeline
 
-**Quality & Security**
+**Quality Assurance**
 - **Shift-left testing:** PR previews, visual regression, accessibility
-- **Security:** SAST/DAST/Dependency scanning, secrets mgmt, threat modeling
 - **Performance budgets** enforced in CI (bundle size, Core Web Vitals)
 - **Code quality gates:** Coverage >80%, no critical vulnerabilities
 
@@ -254,23 +266,34 @@ _For Q&A and deeper discussion_
 
 **Distributed Tracing & APM**
 - **OpenTelemetry** → centralized APM/logs across all MFEs and BFFs
-- **Distributed tracing** to track requests across micro-frontends and backends
 - **Performance monitoring** for Core Web Vitals and API response times
 
-**SLOs & Error Budgets**
+**SLOs**
 - **Service Level Objectives (SLOs)** for availability, latency, and error rates
-- **Error budgets** to balance feature velocity with reliability
 - **Automated alerting** based on SLO violations
 
 **Dashboards & Insights**
 - **Real-time dashboards** for business metrics (conversion, revenue)
 - **Technical dashboards** for system health and performance
-- **Incident management** with runbooks and on-call rotation
 
+---
+
+## Security & Compliance
+
+**Security Architecture**
+- **WAF (Web Application Firewall)** at CDN/Edge layer for DDoS and attack protection
+- **CSP (Content Security Policy)** and Trusted Types to prevent XSS attacks
+- **Secrets management** with centralized vault and rotation policies
+
+**Security Engineering**
+- **SAST/DAST** (Static/Dynamic Application Security Testing) in CI/CD pipeline
+- **Dependency scanning** for vulnerable packages and libraries
 
 ---
 
 ## Common Questions & Talking Points
+<br />
+
 - **Why micro-frontends vs one SPA?** Org alignment, independent deploys, safer migration
 - **Why Next.js SSR/ISR?** Better SEO & Core Web Vitals; edge cacheability; partial static regen
 - **Avoiding a distributed monolith?** Clear contracts, BFF boundaries, consumer tests, ownership, observability
