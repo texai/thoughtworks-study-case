@@ -19,7 +19,7 @@ exportFilename: "Thoughtworks_Case_Presentation"
 **Architecture & Roadmap**  
 **Presenter:** Ernesto Anaya Ruiz
 
-<small>40′ solution presentation · 20′ Q&A</small>
+<small>Thoughtworks | Preparation for Case Study</small>
 
 ---
 layout: section
@@ -62,20 +62,26 @@ layout: section
                                     ├─> [MFE: Booking]
                                     ├─> [MFE: Registration]
                                     └─> [MFE: Account/Payments/...]
-MFE (domain) ──> Domain BFF ──> API Gateway ──> { AWS | GCP | Azure services | 3rd parties }
+                                    
+MFE ──> Domain BFF ──> API Gateway ──> { Travels Backend (AWS) }
+                   └──> API Gateway ──> { Viagens Backend (GCP) }
+                                    └──> { Azure services | 3rd parties }
 ```
 **Why this**  
-- Keeps heterogeneous backends intact; unify UX now, backend later  
+- Keeps heterogeneous backends intact; **no backend unification required**  
+- **Domain BFFs as aggregation layer**: consolidate data from both companies (e.g., merge destination lists)
+- **Response orchestration**: BFFs handle complex scenarios like combining search results, normalizing data formats
 - SSR/ISR via **Next.js** → better **SEO/Core Web Vitals** vs SPA-only  
-- **MFE isolation** mirrors org boundaries, reduces coordination  
-- **Domain BFFs**: contracts, caching, retries, auth; decouple UI from backend quirks  
 - **API Gateway**: routing, rate limiting, authz, cross-cloud abstraction
 
 ---
 
 ## Key Technology Choices
 - **Web shell:** React + Next.js (SSR/ISR) with **Module Federation** for MFEs
-- **BFFs:** Node/TypeScript (Express/Fastify) or Kotlin/Spring where apt
+- **BFFs (Backend for Frontend):**
+  - Node/TypeScript for response aggregation and data transformation
+  - **Key responsibilities:** Merge data from Travels + Viagens, normalize formats, handle pagination
+  - Example: Search BFF calls both backends, merges destinations, deduplicates, sorts by relevance
 - **Contracts:** REST/JSON or GraphQL; **consumer-driven contracts** (Pact) MFE↔BFF & BFF↔Backend
 - **Edge/CDN:** Cloudflare/Akamai/Fastly for assets, image optimization, edge auth
 - **Observability:** OpenTelemetry → centralized APM/logs; dashboards & **SLOs**
@@ -86,35 +92,40 @@ MFE (domain) ──> Domain BFF ──> API Gateway ──> { AWS | GCP | Azure 
 layout: section
 ---
 
-# Migration Strategy (Strangler Fig)
+# Migration Roadmap
 
 ---
 
-## Phases & Timeboxes
-**Phase 0 — Discovery (2–3 wks)**  
+## Roadmap Without Revenue Loss
+
+**Phase 0 — Discovery & Planning**  
 - Inventory frontends/backends, auth, analytics, SEO, SLAs  
 - Establish **ADRs** and tech radar
+- Baseline current metrics (conversion, performance, revenue)
 
-**Phase 1 — Foundations (4–6 wks)**  
+**Phase 1 — Foundations**  
 - Stand up **Web Shell + first MFE skeleton**  
 - Platform toolchain (CI/CD, flags, telemetry, design system)  
 - Create **API Gateway** + **Booking BFF** (pilot)  
-- Implement SSO, edge caching, base observability, security baselines
+- Implement SSO, edge caching, base observability
 
-**Phase 2 — Pilot (4–8 wks)**  
-- Migrate **Search & Discovery** and **Booking** MFEs via BFFs  
-- Dual-run with legacy pages, edge routing by path  
-- A/B test; measure Core Web Vitals & conversion
+**Phase 2 — Complete Migration Preparation**  
+- Build **all MFEs** (Search, Booking, Registration, Payments, Account)  
+- **Feature parity validation**: comprehensive testing vs legacy functionality  
+- Performance benchmarking to ensure **≥100% baseline performance**
+- **Big bang preparation**: deployment scripts, rollback procedures
 
-**Phase 3 — Scale-out (8–16 wks)**  
-- Move Registration, Payments, Account MFEs; standardize contracts; raise coverage  
-- Decommission matching Struts/JSP pages as green path hits **>95% traffic**
+**Phase 3 — Big Bang Migration**  
+- **Complete cutover** from legacy to new platform during maintenance window  
+- **Immediate monitoring**: revenue, conversion, performance dashboards  
+- **Fast rollback capability** if any KPIs drop below acceptable thresholds
 
-**Phase 4 — Optimize & Decommission (ongoing)**  
-- Performance budgets, caching strategies, resiliency patterns, cost controls  
-- Backlog to retire legacy modules; reduce operational toil
+**Phase 4 — Stabilization & Optimization**  
+- Performance tuning and optimization post-migration  
+- Legacy system decommission once stability confirmed  
+- Platform improvements and feature development
 
-**Risk controls:** feature flags, canaries, blue/green, SLOs & error budgets
+**Revenue Protection:** Comprehensive pre-migration testing, performance benchmarking, immediate rollback capability, intensive monitoring
 
 ---
 layout: section
@@ -142,105 +153,87 @@ layout: section
 layout: section
 ---
 
-# Delivery Process & Best Practices
+# Processes and Best Practices
 
 ---
 
-## Paved Road
-- **Trunk-based development**, short-lived branches; **CI/CD per MFE/BFF**
-- **Progressive delivery** (canary/percentage), not batch gates
-- **Consumer-driven contract tests (Pact)**; consumer-first APIs
+## Engineering Excellence & Delivery
+**Development Practices**
+- **Trunk-based development** with short-lived feature branches
+- **CI/CD per MFE/BFF** with automated quality gates
+- **Consumer-driven contract testing** (Pact) between all boundaries
+- **Test pyramid:** Unit (70%) → Integration (20%) → E2E (10%)
 - **Ephemeral preview environments** per PR; visual regression + accessibility checks
-- **Static analysis & coverage gates**; **performance budgets** in CI
+- **Static analysis & coverage gates** enforced in CI pipeline
+
+**Quality & Security**
+- **Shift-left testing:** PR previews, visual regression, accessibility
+- **Security:** SAST/DAST/Dependency scanning, secrets mgmt, threat modeling
+- **Performance budgets** enforced in CI (bundle size, Core Web Vitals)
+- **Code quality gates:** Coverage >80%, no critical vulnerabilities
+
+**Delivery & Operations**
+- **Progressive delivery:** Feature flags, canary releases, A/B testing
 - **Infrastructure as Code**; **GitOps** for environment promotion
-- **ADRs & lightweight governance** (RFCs)
-- **Security:** SAST/DAST/Dependency scanning, CSP/Trusted Types, secrets mgmt, threat modeling
+- **Observability-first:** OpenTelemetry, distributed tracing, SLOs
+- **Incident management:** Runbooks, on-call rotation, blameless postmortems
 
 ---
 layout: section
 ---
 
-# KPIs & Success Metrics
+# KPIs for Team Performance
 
 ---
 
-## Delivery & Flow (leading)
-- **DORA metrics**: lead time, deploy frequency, change failure rate, MTTR
-- Cycle time, PR size/age, WIP limits, build time, flaky test rate, pipeline reliability
+## Team Performance & Value Delivery Metrics
 
-## Product & Customer (lagging)
-- **Conversion rate** (search → booking), booking completion, cancellations
-- **Core Web Vitals**: LCP ≤ 2.5s (p75), INP ≤ 200ms, CLS ≤ 0.1
-- Error rate (JS & API), p95 latency, SLO availability (e.g., 99.9%)
+**DORA Metrics (Industry Standard)**
+- **Lead Time for Changes:** < 1 day for MFE changes
+- **Deployment Frequency:** Multiple deploys per day per team
+- **Change Failure Rate:** < 15% requiring hotfix/rollback
+- **Mean Time to Recovery:** < 1 hour for critical issues
 
-## Platform & Cost
-- **% traffic served by unified app**, legacy pages decommissioned
-- Infra cost / 1k bookings, cache hit ratio, CDN offload %, egress
+**Engineering Efficiency**
+- **Cycle Time:** Idea → Production < 1 week for small features
+- **PR Turnaround:** Review & merge within 4 hours
+- **Build Time:** < 10 minutes for MFE, < 15 minutes for BFF
+- **Test Coverage:** > 80% with < 2% flaky tests
 
----
-layout: section
----
-
-# Security, Privacy & Compliance
-
----
-
-## Guardrails
-- OIDC/OAuth2 with centralized policy enforcement; least-privileged RBAC
-- CSP, Subresource Integrity, security headers; dependency risk mgmt
-- Consent management, data residency, audit trails
-- PCI-adjacent isolation for payments; PII handling guidelines
-
----
-layout: section
----
-
-# Risks & Mitigations
+**Team Health**
+- **Cognitive Load:** Teams own max 2 MFEs + 1 BFF
+- **On-call Burden:** < 2 incidents/week requiring manual intervention
+- **Technical Debt Ratio:** 20% sprint capacity for improvements
 
 ---
 
-## Top Risks
-- **SEO regressions** → maintain URLs/redirects, SSR, metadata parity, schema.org, sitemaps
-- **Cross-cloud latency** → smart routing, caching, async composition, circuit breakers
-- **Auth fragmentation** → unified IdP & token strategy; BFF token exchange
-- **Analytics drift** → event schema contract + validation in CI/CD
-- **Change fatigue** → phased rollout + strong observability + feature flags
+## KPIs for Solution Success
+
+**Business Impact**
+- **Revenue per Session:** Maintain or improve vs. baseline
+- **Conversion Rate:** Search → Booking improvement ≥ 5%
+- **Cart Abandonment:** Reduce by 10% within 6 months
+- **Customer Lifetime Value:** Increase through unified experience
+
+**Technical Excellence**
+- **Core Web Vitals:** LCP < 2.5s, INP < 200ms, CLS < 0.1 (p75)
+- **Availability:** 99.95% uptime for critical user journeys
+- **API Performance:** p95 latency < 200ms, p99 < 500ms
+- **Error Rate:** < 0.1% for user-facing features
+
+**Platform Adoption**
+- **Migration Progress:** 100% traffic on new platform within 12 months
+- **Legacy Decommission:** -25% legacy code per quarter
+- **Cost Efficiency:** 20% reduction in infrastructure cost per transaction
 
 ---
-layout: section
+layout: center
+class: text-center
 ---
 
-# Demo Ideas
-
----
-
-## Two Quick Demos
-1) **Feature-flagged rollout** of Booking MFE with real-time metrics dashboard  
-2) **Contract test breaker**: consumer-driven contract prevents a backward-incompatible change
-
----
-layout: section
----
-
-# Agenda & Workback Plan
-
----
-
-## Presentation Agenda (40′)
-1. Context & Goals (0–5)  
-2. Target Architecture (5–15)  
-3. Migration Roadmap (15–23)  
-4. Team Topology (23–28)  
-5. Delivery & Best Practices (28–33)  
-6. KPIs & Success (33–38)  
-7. Risks + Ask (38–40)
-
-## 5-Day Workback Plan (for submission)
-- **Day 1:** Discovery notes; baseline metrics wishlist; draft ADRs  
-- **Day 2:** Architecture diagrams (current/target); choose pilot domain  
-- **Day 3:** Roadmap & org model; platform backlog; risks  
-- **Day 4:** Deck + speaker notes; dashboard mockups  
-- **Day 5:** Dry run (40/20); refine Q&A; submit assets & availability
+# Thank you
+**Ernesto Anaya Ruiz**  
+_Questions welcome — looking forward to the discussion._
 
 ---
 layout: section
@@ -258,12 +251,3 @@ layout: section
 - **Keeping quality high?** Shift-left: unit/component/contract; few critical E2Es; PR previews; a11y checks
 - **Release strategy?** Progressive delivery (flags/canary), error budgets, auto-rollback
 - **Data privacy?** Consent mgmt; minimize PII; policy-as-code; auditing
-
----
-layout: center
-class: text-center
----
-
-# Thank you
-**Ernesto Anaya Ruiz**  
-_Questions welcome — looking forward to the discussion._
