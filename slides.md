@@ -155,19 +155,28 @@ layout: section
 
 ---
 
-## Org Model
-- **Frontend Platform (Enablement) Team**  
-  Paved-road: shell, design system, CI/CD templates, linting, accessibility, i18n, perf budgets
-- **Domain Product Squads** (Booking, Registration, Search, Account, etc.)  
-  Own **MFE + Domain BFF**; end-to-end delivery (UX → prod)
-- **Platform/SRE**  
-  Incident mgmt, capacity/cost, IaC, security baselines
-- **QA as Engineering Discipline**  
-  Embedded SDETs; contract testing, E2E in prod-like, accessibility, non-functional
-- **Data/Analytics**  
-  Event schema, consent, dashboards, experimentation framework
+## Team Structure & Responsibilities
 
-> **Ownership:** CODEOWNERS/Backstage catalog; runbooks; on-call per domain; error budgets
+**Platform Team (Enablement)**
+- **Core responsibilities:** Shell architecture, design system, CI/CD templates
+- **Developer experience:** Linting, tooling, i18n framework (if needed)
+- **Skill mix:** Frontend architects, DevOps engineers, UX system designers
+
+**Domain Product Squads** _(Cross-functional)_
+- **Ownership:** Complete MFE + Domain BFF lifecycle (design → development → production)
+- **Domains:** Booking, Search & Discovery, Registration, Account/Payments
+- **Skills mix:** Frontend, backend, UX
+
+**Platform/SRE Team**
+- **Infrastructure:** IaC, capacity planning, cost optimization, security baselines
+- **Operations:** Incident management, monitoring, performance optimization
+
+**Embedded Quality Engineering**
+- **Integration:** Embedded in each domain squad
+- **Focus:** Contract testing, E2E automation, accessibility, performance testing
+
+**Data & Analytics**
+- **Insights:** Business dashboards, conversion analysis, A/B testing framework (if needed)
 
 ---
 layout: section
