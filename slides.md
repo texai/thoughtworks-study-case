@@ -43,7 +43,7 @@ layout: section
 ## Approach & Outcomes
 
 **Approach (high level)**  
-- **Micro-frontends (MFE) with a shell** + **domain BFFs** + **API gateway**  
+- **Micro-frontends (MFE) with a shell** + **domain BFFs** + **API Gateway**  
 - **Feature flags**, **contract testing**, **progressive delivery**  
 - **Strangler Fig** to retire Struts/JSP gradually
 
@@ -79,7 +79,7 @@ MFE ──> Domain BFF ──> API Gateway ──> { Travels Backend (AWS) }
 
 **Why this approach?**  
 - Keeps heterogeneous backends intact; **no backend unification required**  
-- **Domain BFFs as aggregation layer**: consolidate data from 2 companies (eg.merge destination lists)
+- **Domain BFFs as aggregation layer**: consolidate data from 2 companies (e.g., merge destination lists)
 - **Response orchestration**: BFFs handle complex scenarios (merging search results, normalizing data)
 - SSR/ISR via **Next.js** → better **SEO/Core Web Vitals** vs SPA-only  
 - **API Gateway**: routing, rate limiting, authz, cross-cloud abstraction
@@ -127,7 +127,7 @@ layout: section
 - Create **API Gateway** + **Booking BFF** (pilot)
 
 **Phase 2 — Complete Migration Preparation**  
-- Build **all MFEs** (Search, Booking, Registration, Payments, Account)  
+- Build **all MFEs** (Search, Booking, Registration, Account, Payments)  
 - **Feature parity validation**: comprehensive testing vs legacy functionality  
 - Performance benchmarking to ensure **≥100% baseline performance**
 
