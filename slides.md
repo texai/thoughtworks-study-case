@@ -155,28 +155,33 @@ layout: section
 
 ---
 
-## Team Structure & Responsibilities
+## Core Teams Structure
 
 **Platform Team (Enablement)**
-- **Core responsibilities:** Shell architecture, design system, CI/CD templates
+- **Core responsibilities:** Shell architecture, design system
 - **Developer experience:** Linting, tooling, i18n framework (if needed)
-- **Skill mix:** Frontend architects, DevOps engineers, UX system designers
+- **Skill mix:** Frontend architects, UX system designers
 
 **Domain Product Squads** _(Cross-functional)_
 - **Ownership:** Complete MFE + Domain BFF lifecycle (design → development → production)
 - **Domains:** Booking, Search & Discovery, Registration, Account/Payments
-- **Skills mix:** Frontend, backend, UX
+- **Skills mix:** Frontend, backend, UX, product owner
 
-**Platform/SRE Team**
+---
+
+## Supporting Teams & Integration
+
+**SRE Team**
 - **Infrastructure:** IaC, capacity planning, cost optimization, security baselines
+- **CI/CD:** Pipeline templates, deployment automation, build optimization
 - **Operations:** Incident management, monitoring, performance optimization
+- **Skill mix:** Site reliability engineers, DevOps engineers, infrastructure specialists
 
-**Embedded Quality Engineering**
-- **Integration:** Embedded in each domain squad
-- **Focus:** Contract testing, E2E automation, accessibility, performance testing
-
-**Data & Analytics**
-- **Insights:** Business dashboards, conversion analysis, A/B testing framework (if needed)
+**Quality Engineering & Analytics**
+- **Quality:** Contract testing, E2E automation, accessibility, performance testing
+- **Analytics:** Business dashboards, conversion analysis, A/B testing framework (if needed)
+- **Integration:** Embedded specialists in each domain squad
+- **Skill mix:** Test automation engineers, data analysts, accessibility specialists
 
 ---
 layout: section
