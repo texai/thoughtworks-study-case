@@ -25,7 +25,7 @@ exportFilename: "Thoughtworks_Case_Presentation"
 layout: section
 ---
 
-# Executive Summary
+# Summary
 
 ---
 
@@ -92,7 +92,6 @@ MFE ──> Domain BFF ──> API Gateway ──> { Travels Backend (AWS) }
   - Example: Search BFF calls both backends, merges destinations, deduplicates, sorts by relevance
 - **Contracts:** REST/JSON or GraphQL; **consumer-driven contracts** (Pact) MFE↔BFF & BFF↔Backend
 - **Edge/CDN:** Cloudflare/Akamai/Fastly for assets, image optimization, edge auth
-- **Observability:** OpenTelemetry → centralized APM/logs; dashboards & **SLOs**
 - **Analytics & Consent:** Unified event schema + privacy/consent management
 - **Security:** WAF, CSP/Trusted Types, secret mgmt, RASP (optional)
 
@@ -149,7 +148,7 @@ layout: section
 - **Domain Product Squads** (Booking, Registration, Search, Account, etc.)  
   Own **MFE + Domain BFF**; end-to-end delivery (UX → prod)
 - **Platform/SRE**  
-  Observability, SLOs, incident mgmt, capacity/cost, IaC, security baselines
+  Incident mgmt, capacity/cost, IaC, security baselines
 - **QA as Engineering Discipline**  
   Embedded SDETs; contract testing, E2E in prod-like, accessibility, non-functional
 - **Data/Analytics**  
@@ -183,7 +182,6 @@ layout: section
 **Delivery & Operations**
 - **Progressive delivery:** Feature flags, canary releases, A/B testing
 - **Infrastructure as Code**; **GitOps** for environment promotion
-- **Observability-first:** OpenTelemetry, distributed tracing, SLOs
 - **Incident management:** Runbooks, on-call rotation, blameless postmortems
 
 ---
@@ -247,7 +245,28 @@ _Questions welcome — looking forward to the discussion._
 layout: section
 ---
 
-# Q&A Bank (Samples)
+# Additional Reference Materials
+_For Q&A and deeper discussion_
+
+---
+
+## Observability & Monitoring
+
+**Distributed Tracing & APM**
+- **OpenTelemetry** → centralized APM/logs across all MFEs and BFFs
+- **Distributed tracing** to track requests across micro-frontends and backends
+- **Performance monitoring** for Core Web Vitals and API response times
+
+**SLOs & Error Budgets**
+- **Service Level Objectives (SLOs)** for availability, latency, and error rates
+- **Error budgets** to balance feature velocity with reliability
+- **Automated alerting** based on SLO violations
+
+**Dashboards & Insights**
+- **Real-time dashboards** for business metrics (conversion, revenue)
+- **Technical dashboards** for system health and performance
+- **Incident management** with runbooks and on-call rotation
+
 
 ---
 
