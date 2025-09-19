@@ -1,0 +1,80 @@
+@startuml Unified Web Platform Architecture
+
+!define RECTANGLE class
+!define COMPONENT component
+!define DATABASE database
+!define CLOUD cloud
+
+title Unified Web Platform Architecture
+
+actor Users as users
+cloud "CDN/Edge + WAF" as cdn
+
+rectangle "Unified Web App Shell" as shell {
+  component "Next.js SSR/ISR" as nextjs
+  component "Module Federation" as federation
+}
+
+rectangle "Micro-Frontends" as mfes {
+  component "MFE: Search & Discovery" as search_mfe
+  component "MFE: Booking" as booking_mfe
+  component "MFE: Registration" as registration_mfe
+  component "MFE: Account/Payments" as account_mfe
+}
+
+rectangle "Domain BFFs" as bffs {
+  component "Search BFF" as search_bff
+  component "Booking BFF" as booking_bff
+  component "Registration BFF" as registration_bff
+  component "Account BFF" as account_bff
+}
+
+component "API Gateway" as gateway
+
+cloud "AWS" as aws {
+  database "Travels Backend" as travels_backend
+}
+
+cloud "GCP" as gcp {
+  database "Viagens Backend" as viagens_backend
+}
+
+cloud "Azure + 3rd Parties" as azure {
+  database "Other Services" as other_services
+}
+
+' User flow
+users --> cdn
+cdn --> nextjs
+
+' Shell to MFEs
+nextjs --> federation
+federation --> search_mfe
+federation --> booking_mfe
+federation --> registration_mfe
+federation --> account_mfe
+
+' MFEs to BFFs
+search_mfe --> search_bff
+booking_mfe --> booking_bff
+registration_mfe --> registration_bff
+account_mfe --> account_bff
+
+' BFFs to Gateway
+search_bff --> gateway
+booking_bff --> gateway
+registration_bff --> gateway
+account_bff --> gateway
+
+' Gateway to Backends
+gateway --> travels_backend
+gateway --> viagens_backend
+gateway --> other_services
+
+note right of search_bff : Aggregates data from\nboth Travels & Viagens\nbackends, merges results,\nnormalizes formats
+
+note right of gateway : Routes requests,\nrate limiting, authz,\ncross-cloud abstraction
+
+note bottom of nextjs : SSR/ISR for better\nSEO & Core Web Vitals
+
+@enduml

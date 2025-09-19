@@ -58,8 +58,7 @@ layout: section
 
 ---
 
-## High-Level Diagram
-
+## High-Level Diagram <span style="font-size: 0.5em;"><a href="/architecture.png" target="_blank">📊 View detailed architecture diagram</a></span>
 ```text
 [Unified Web Platform Architecture]
 [Users] ──> [CDN/Edge + WAF] ──> [Unified Web App Shell (Next.js SSR/ISR)]
