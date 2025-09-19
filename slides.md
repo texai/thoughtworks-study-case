@@ -29,7 +29,7 @@ layout: section
 
 ---
 
-## Context & Vision
+## Problem & Vision
 **Problem**  
 - Two customer-facing apps (Travels: Struts/JSP on Tomcat; Viagens: React SPA + BFF)  
 - Multiple backends across AWS, GCP, Azure  
@@ -38,13 +38,17 @@ layout: section
 **Vision**  
 - A **single, resilient, fast web experience** powered by a **frontend platform** (React/Next.js shell) that composes **domain micro-frontends** and brokers requests via **domain BFFs** across existing backends.
 
+---
+
+## Approach & Outcomes
 **Approach (high level)**  
 - **Micro-frontends (MFE) with a shell** + **domain BFFs** + **API gateway**  
 - **Feature flags**, **contract testing**, **progressive delivery**  
 - **Strangler Fig** to retire Struts/JSP gradually
 
 **Outcomes**  
-- Faster delivery, reduced coupling, safer releases, improved UX & Core Web Vitals
+- Faster delivery, reduced coupling, safer releases  
+- Improved UX & Core Web Vitals
 
 ---
 layout: section
@@ -55,7 +59,9 @@ layout: section
 ---
 
 ## High-Level Diagram
+
 ```text
+[Unified Web Platform Architecture]
 [Users] ──> [CDN/Edge + WAF] ──> [Unified Web App Shell (Next.js SSR/ISR)]
                                     │
                                     ├─> [MFE: Search & Discovery]
@@ -67,16 +73,19 @@ MFE ──> Domain BFF ──> API Gateway ──> { Travels Backend (AWS) }
                    └──> API Gateway ──> { Viagens Backend (GCP) }
                                     └──> { Azure services | 3rd parties }
 ```
-**Why this**  
+
+**Why this approach?**  
 - Keeps heterogeneous backends intact; **no backend unification required**  
-- **Domain BFFs as aggregation layer**: consolidate data from both companies (e.g., merge destination lists)
-- **Response orchestration**: BFFs handle complex scenarios like combining search results, normalizing data formats
+- **Domain BFFs as aggregation layer**: consolidate data from 2 companies (eg.merge destination lists)
+- **Response orchestration**: BFFs handle complex scenarios (merging search results, normalizing data)
 - SSR/ISR via **Next.js** → better **SEO/Core Web Vitals** vs SPA-only  
 - **API Gateway**: routing, rate limiting, authz, cross-cloud abstraction
 
 ---
 
 ## Key Technology Choices
+<br />
+
 - **Web shell:** React + Next.js (SSR/ISR) with **Module Federation** for MFEs
 - **BFFs (Backend for Frontend):**
   - Node/TypeScript for response aggregation and data transformation
