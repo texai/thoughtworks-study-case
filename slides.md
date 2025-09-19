@@ -192,23 +192,21 @@ layout: section
 ---
 
 ## Engineering Excellence & Delivery
-**Development Practices**
-- **Trunk-based development** with short-lived feature branches
-- **CI/CD per MFE/BFF** with automated quality gates
-- **Consumer-driven contract testing** (Pact) between all boundaries
-- **Test pyramid:** Unit (70%) → Integration (20%) → E2E (10%)
-- **Ephemeral preview environments** per PR; visual regression + accessibility checks
-- **Static analysis & coverage gates** enforced in CI pipeline
 
-**Quality Assurance**
-- **Shift-left testing:** PR previews, visual regression, accessibility
-- **Performance budgets** enforced in CI (bundle size, Core Web Vitals)
-- **Code quality gates:** Coverage >80%, no critical vulnerabilities
+**Development Standards**
+- **Trunk-based development** with short-lived feature branches and feature flags for safe integration
+- **Consumer-driven contracts** (Pact) to prevent breaking changes
+- **Test strategy:** Unit-first approach with focused integration and E2E tests
+- **Code reviews:** Pair programming encouraged, automated quality gates
 
-**Delivery & Operations**
-- **Progressive delivery:** Feature flags, canary releases, A/B testing
-- **Infrastructure as Code**; **GitOps** for environment promotion
-- **Incident management:** Runbooks, on-call rotation, blameless postmortems
+**Quality & Performance**
+- **Performance budgets:** Bundle size limits, Core Web Vitals thresholds
+- **Preview environments:** Per-PR deployments for stakeholder validation
+- **Automated testing:** Visual regression, accessibility, cross-browser compatibility
+
+**Delivery & Reliability**
+- **Infrastructure as Code:** Version-controlled, repeatable deployments
+- **Incident response:** Clear runbooks, blameless postmortems, continuous improvement
 
 ---
 layout: section
@@ -218,45 +216,41 @@ layout: section
 
 ---
 
-## Team Performance & Value Delivery Metrics
+## Team Performance & Value Delivery
 
-**DORA Metrics (Industry Standard)**
-- **Lead Time for Changes:** < 1 day for MFE changes
-- **Deployment Frequency:** Multiple deploys per day per team
-- **Change Failure Rate:** < 15% requiring hotfix/rollback
-- **Mean Time to Recovery:** < 1 hour for critical issues
+**Delivery Velocity (DORA Metrics)**
+- **Lead Time:** Feature conception to production deployment
+- **Deployment Frequency:** Multiple releases per day per team
+- **Change Failure Rate:** Percentage of deployments requiring immediate fix
+- **Recovery Time:** Time to restore service after incidents
 
-**Engineering Efficiency**
-- **Cycle Time:** Idea → Production < 1 week for small features
-- **PR Turnaround:** Review & merge within 4 hours
-- **Build Time:** < 10 minutes for MFE, < 15 minutes for BFF
-- **Test Coverage:** > 80% with < 2% flaky tests
-
-**Team Health**
-- **Cognitive Load:** Teams own max 2 MFEs + 1 BFF
-- **On-call Burden:** < 2 incidents/week requiring manual intervention
-- **Technical Debt Ratio:** 20% sprint capacity for improvements
+**Engineering Productivity**
+- **Cycle Time:** Code commit to production deployment
+- **Code Review Efficiency:** Time from PR creation to merge
+- **Build & Test Performance:** Pipeline execution time and reliability
+- **Quality Metrics:** Test coverage, defect escape rate, technical debt
 
 ---
 
-## KPIs for Solution Success
+## Solution Success Metrics
 
-**Business Impact**
-- **Revenue per Session:** Maintain or improve vs. baseline
-- **Conversion Rate:** Search → Booking improvement ≥ 5%
-- **Cart Abandonment:** Reduce by 10% within 6 months
-- **Customer Lifetime Value:** Increase through unified experience
+**Business Value Creation**
+- **Revenue Growth:** Increased bookings and session value through improved UX
+- **Conversion Optimization:** Enhanced funnel performance across all touchpoints
+- **Customer Experience:** Unified journey reducing friction and abandonment
+- **Market Expansion:** Faster feature delivery enabling new market opportunities
 
-**Technical Excellence**
-- **Core Web Vitals:** LCP < 2.5s, INP < 200ms, CLS < 0.1 (p75)
-- **Availability:** 99.95% uptime for critical user journeys
-- **API Performance:** p95 latency < 200ms, p99 < 500ms
-- **Error Rate:** < 0.1% for user-facing features
+**Technical Performance**
+- **User Experience:** Core Web Vitals meeting Google's recommended thresholds
+- **System Reliability:** High availability for critical booking and search flows
+- **API Performance:** Consistent response times across all micro-frontends
+- **Error Resilience:** Graceful degradation and quick recovery from failures
 
-**Platform Adoption**
-- **Migration Progress:** 100% traffic on new platform within 12 months
-- **Legacy Decommission:** -25% legacy code per quarter
-- **Cost Efficiency:** 20% reduction in infrastructure cost per transaction
+**Platform Maturity & Efficiency**
+- **Migration Success:** Complete transition from legacy systems
+- **Operational Excellence:** Reduced maintenance overhead and faster deployments
+- **Cost Optimization:** Lower infrastructure costs through efficient architecture
+- **Development Velocity:** Accelerated feature delivery through improved tooling
 
 ---
 layout: center
