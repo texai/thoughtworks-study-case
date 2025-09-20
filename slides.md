@@ -74,6 +74,10 @@ a:hover {
 
 <small>Thoughtworks | Preparation for Case Study</small>
 
+<div style="position: absolute; bottom: 20px; right: 20px; font-size: 0.7em;">
+<a href="/Thoughtworks_Case_Presentation.pdf" target="_blank">📄 View PDF</a>
+</div>
+
 ---
 layout: section
 ---
